@@ -5,14 +5,15 @@ from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
 import requests
 import threading
+import os
 
 from bot.models import Game
 
 # Create your views here.
-zoom_verification_token = 'BOEocvS7TbC-CQdnhLjFHw'
-zoom_bot_jid = 'v1flibvr30rwamemhltiewsa@xmpp.zoom.us'
-zoom_client_id = 'jrYOVqXdSAGpD_rPQDI6g'
-zoom_client_secret = '81qupvgxJrZX8V4NQx787N0nTK0zA31a'
+zoom_verification_token = os.environ.get('VERIFICATION_TOKEN')
+zoom_bot_jid = os.environ.get('BOT_JID')
+zoom_client_id = os.environ.get('CLIENT_ID')
+zoom_client_secret = os.environ.get('CLIENT_SECRET')
 
 
 def exec_command(cmd: str, payload):
