@@ -33,6 +33,7 @@ def exec_command(cmd: str, payload):
             try:
                 game = Game(name=split[0], url=split[1])
                 game.save()
+                notify('Game added!', payload)
             except:
                 notify('Syntax error!', payload)
         
@@ -40,6 +41,7 @@ def exec_command(cmd: str, payload):
             name = cmd.removeprefix('del ')
             try:
                 Game.objects.get(name=name).delete()
+                notify('Game removed!', payload)
             except Game.DoesNotExist:
                 notify('This game does not exist!', payload)
 
