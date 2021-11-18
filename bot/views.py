@@ -1,13 +1,17 @@
 import json
+import os
+import threading
+
+import requests
 from django.http.response import HttpResponse
 from django.shortcuts import redirect
-from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
-import requests
-import threading
-import os
+from django.views.decorators.http import require_GET, require_POST
+from dotenv import load_dotenv
 
 from bot.models import Game
+
+load_dotenv()
 
 # Create your views here.
 zoom_verification_token = os.environ.get('VERIFICATION_TOKEN')
@@ -37,7 +41,7 @@ def exec_command(cmd: str, payload):
                 notify('Game added!', payload)
             except:
                 notify('Syntax error!', payload)
-        
+
         case 'del':
             name = cmd.removeprefix('del ')
             try:
@@ -46,9 +50,10 @@ def exec_command(cmd: str, payload):
             except Game.DoesNotExist:
                 notify('This game does not exist!', payload)
 
+
 def get_token():
     return requests.post('https://zoom.us/oauth/token?grant_type=client_credentials',
-                          auth=(zoom_client_id, zoom_client_secret)).json()['access_token']
+                         auth=(zoom_client_id, zoom_client_secret)).json()['access_token']
 
 
 def notify(message, payload):
