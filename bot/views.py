@@ -59,7 +59,7 @@ def get_token():
 def notify(message, payload):
     message_id = send_msg(message, payload)["message_id"]
 
-    timer = threading.Timer(5, delete_msg, [message_id, payload])
+    timer = threading.Timer(2, delete_msg, [message_id, payload])
     timer.start()
 
 
