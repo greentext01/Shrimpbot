@@ -89,7 +89,7 @@ DATABASES = {
     }
 }
 
-if not DEBUG:
+if not DEBUG and os.environ.get('DATABASE_URL', None):
     DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
