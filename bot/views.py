@@ -18,34 +18,34 @@ zoom_client_secret = os.environ.get('CLIENT_SECRET')
 
 
 def exec_command(cmd: str, payload):
-    match cmd.split(' ')[0]:
-        case 'say':
-            send_msg(cmd.removeprefix('say '), payload)
+    split = cmd.split(' ')[0]
+    if split == 'say':
+        send_msg(cmd.removeprefix('say '), payload)
 
-        case 'list':
-            msg = '*Games List (With Shrimp 🦐)*\n\n*Consider contributing! Send me or @✨Winning Lisa✨ a message and you will get credited with the game.*'
+    elif split == 'list':
+        msg = '*Games List (With Shrimp 🦐)*\n\n*Consider contributing! Send me or @✨Winning Lisa✨ a message and you will get credited with the game.*'
 
-            for item in Game.objects.all():
-                msg += f'\n\n{item.name}: {item.url}'
+        for item in Game.objects.all():
+            msg += f'\n\n{item.name}: {item.url}'
 
-            send_msg(msg, payload)
+        send_msg(msg, payload)
 
-        case 'add':
-            split = cmd.removeprefix('add ').split(';')
-            try:
-                game = Game(name=split[0], url=split[1])
-                game.save()
-                notify('Game added!', payload)
-            except:
-                notify('Syntax error!', payload)
+    elif split == 'add':
+        split = cmd.removeprefix('add ').split(';')
+        try:
+            game = Game(name=split[0], url=split[1])
+            game.save()
+            notify('Game added!', payload)
+        except:
+            notify('Syntax error!', payload)
 
-        case 'del':
-            name = cmd.removeprefix('del ')
-            try:
-                Game.objects.get(name=name).delete()
-                notify('Game removed!', payload)
-            except Game.DoesNotExist:
-                notify('This game does not exist!', payload)
+    elif split == 'del':
+        name = cmd.removeprefix('del ')
+        try:
+            Game.objects.get(name=name).delete()
+            notify('Game removed!', payload)
+        except Game.DoesNotExist:
+            notify('This game does not exist!', payload)
 
 
 def get_token():
