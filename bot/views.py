@@ -7,11 +7,8 @@ from django.http.response import HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
-from dotenv import load_dotenv
 
 from bot.models import Game
-
-load_dotenv()
 
 # Create your views here.
 zoom_verification_token = os.environ.get('VERIFICATION_TOKEN')
