@@ -1,0 +1,10 @@
+{
+    "name": "Shrimpbot",
+    "description": "A zoom chatbot made for Games List",
+    "repository": "https://github.com/greentext01/Shrimpbot",
+    "keywords": [
+        "zoom",
+        "chatbot",
+        "django"
+    ]
+}
